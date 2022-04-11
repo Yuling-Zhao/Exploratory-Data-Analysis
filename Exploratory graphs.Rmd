@@ -1,0 +1,93 @@
+---
+title: "Exploratory Graphs"
+author: "Yuling"
+date: "4/11/2022"
+output: html_document
+---
+
+
+* To understand data properties
+* To find patterns in data
+* To suggest modeling strategies
+* To "debug" analyses
+* To communicate results
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+```{r example, echo=FALSE}
+#I don't have the data, only want to take a note of the reading in function parametersl
+pollution <- read.csv("data/avgom25.csv", colClasses = c("numeric", "character", "factor", "numeric", "numeric"))
+```
+
+# Simple summaries of Data
+
+## One dimension
+* Five-number summary
+```{r ecjo=FALSE}
+#including mean, it's six number summary
+summary(pollution$pm25)
+```
+
+* Boxplots
+```{r}
+boxplot(pollutions$pm25, col = "blue")
+abline(h = 12) #in this case, it's the air quality standard
+```
+
+* Histograms
+```{r}
+hist(pollution$pm25, col = "green") 
+rug(pollution$pm25) #detail of outliers
+abline(v = 12, lwd = 2)
+abline(v = median(pollution$pm25), col = "magenta", lwd = 4)
+#alternative
+hist(pollution$pm25, col = "green", breaks = 100) #it will change the shape of the histogram, should play around with the break number
+```
+
+* Density plot
+
+* Barplot
++ Barplot is a good example for catagory data
+```{r}
+barplot(table(pollution$region), col = "wheat", main = "Number of Counties in Each Region") #main is the title of the graph
+```
+
+## Two dimensions
+* Multiple/overlayed 1-D plots (Lattice/ggplot2)
+```{r }
+#multiple Boxplots
+boxplot(pm25 ~ region, data = pollution, col = "red")
+
+#mutiple histograms
+par(mfrow = c(2,1), mar = c(4,4,2,1))
+hist(subset(pollution, region == "east")$pm25, col = "green")
+hist(subset(pollution, region == "west")$pm25, col = "green")
+```
+
+* Scatterplots
+```{r}
+with(pollution, plot(latitude, pm25))
+#add color to add dimensions
+with(pollution, plot(latitude, pm25, col = region))
+abline(h = 12, lwd = 2, lty = 2)
+
+#multiple scatterplots
+par(mfrow = c(2,1), mar = c(5,4,2,1))
+with(subset(pollution, region == "west"), plot(latitude, pm25, main = "west"))
+with(subset(pollution, region == "east"), plot(latitude, pm25, main = "east"))
+```
+
+* Smooth scatterplots
+
+## >2 dimensions
+* Overlayed/multiple 2-D plots; coplots;
+Use color, size, shape to add dimensions;
+* Spinning plots;
+* Actual 3-D plots (not that useful)
+
+# Further resources
+* [R Graph Gallery](https://r-graph-gallery.com/)
+* [R Bloggers](https://www.r-bloggers.com/)
+

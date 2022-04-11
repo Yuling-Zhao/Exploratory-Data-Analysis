@@ -1,0 +1,29 @@
+---
+title: "Principles of analytic graphics"
+author: "Yuling"
+date: "4/11/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Principle 1: Show comparisons
+* Always ask a question: compared to what?
+
+# Principle 2: Show causality, mechanism, explanation, systematic structure
+* What is your causal framework for thinking about a question?
+
+# Principle 3: Show mutilvariate data
+* Multivate = more than 2 variables;
+* Escape flatland
+
+# Principle 4: Intergration of evidence
+* Completely integrate words, numbers, images, diagrams;
+* Data graphics should make use of many modes of data presentationl
+* Don't let the tool drive the analysis;
+
+# Principle 5: Describe and document the evidence with appropriate labels, scales, sources, etc.
+* A data graphic should tell a complete story that is credible;
+
+# Principle: Content is king
+* Analytical presentation ultimately stand or fall depending on the quality, relavance and integrity of their content;
