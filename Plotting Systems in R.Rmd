@@ -1,0 +1,57 @@
+---
+title: "Plotting Systems in R"
+author: "Yuling"
+date: "4/12/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+# The Base Plotting System
+* "Artist's palette" model
+* Start with blank canvas and build up from there
+* Start with **plot function** (or similar)
+* Use **annotation functions** to add/modify (text, lines, points, axis)
+
+## Drawbacks
+* Can't go back once plot has started; need to plan in advance
+* no conceptual language
+
+```{r Base plot}
+library(datasets)
+data(cars)
+with(cars, plot(speed, dist))
+```
+
+# The Lattice system
+* Plots are created with a single functional call (xyplot, bwplot, etc.)
+* Most useful for conditionaing types of plots: Looking at how y changes with x across levels of z
+* Things like margins/spacing set automatically because entire plot is specified at once
+* Good for putting many plots on a screen
+
+## Drawbacks
+* Difficult to specify an entire plot in a single function call
+* Annotation in plot is not especially intuitive
+* Use of panel functions and subscripts difficult to wield and requires intense preparation
+* Canoot "add" to the plot once it is created
+
+```{r}
+library(lattice)
+state <- data.frame(state.x77, region = state.region)
+xyplot(Life.Exp ~ Income | region, data =state, layout = c(4,1))
+```
+
+# The ggplot2 System
+* Splits the difference between base and lattice in a number of ways
+* Automatically deals with spacing, text, titles but also allows you to annotate by "adding" to a plot
+* Superficial similarity to lattice but gereally easier/more intuitive to usel
+* Default mode makes many choices for you (but you can still customize to your heart's desire)
+
+```{r}
+library(ggplot2)
+data(mpg)
+qplot(displ, hwy, data = mpg)
+```
+
