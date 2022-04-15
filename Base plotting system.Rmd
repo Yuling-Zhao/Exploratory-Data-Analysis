@@ -89,6 +89,12 @@ par(mfrow = c(1, 2), mar = c(4,4,2,1), oma = c(0,0,2,0)) ; with(airquality, {
 })
 # mar = c(bottom, left, top, right)
 
+
+# plot multiple data onto one graph
+g <- gl(2,50,labels = c("male", "female")) #this data contains two groups, we want to plot two groups together but distinguishable
+plot(x,y,type = "n") #generate a plot without data; must assign x, y some random data first
+points(x[g == "male"], y[g == "male"], col = "green")
+points(x[g == "female", y[g == "female"], col = "grey"])
 ```
 
 # Summary
