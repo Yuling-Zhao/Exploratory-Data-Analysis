@@ -75,7 +75,7 @@ library(datasets)
 with(airquality, plot(Wind, Ozone)); title(main = "Ozone and Wind in New York City") #the title function must be done with the plotting window shown, otherwise there's an error of plot.new not being called; it's only the issue in R markdown, without problem in R script
 
 #alternative
-with(airquality, plot(Wind, Ozone, main = "Ozone and Wind in New York City")); with(subset(airquality, Month == 5), points(Wind, Ozone, col = "blue")); with(subset(airquality, Month != 5), points(Wind, Ozone, col = "red")); legend("topright", pch = 1, col = c("blue", "red"), legend = c("May", "Other Months"))
+with(airquality, plot(Wind, Ozone, main = "Ozone and Wind in New York City")); with(subset(airquality, Month == 5), points(Wind, Ozone, col = "blue")); with(subset(airquality, Month != 5), points(Wind, Ozone, col = "red")); legend("topright", pch = 1, col = c("blue", "red"), legend = c("May", "Other Months")) #legend choices: "topleft", "topright", "bottomleft", "bottomright"
 
 #add regression model
 model <- lm(Ozone ~ Wind, airquality)
@@ -87,7 +87,7 @@ par(mfrow = c(1, 2), mar = c(4,4,2,1), oma = c(0,0,2,0)) ; with(airquality, {
   plot(Solar.R, Ozone, main = "Ozone and Solar Radiation")
   mtext("Ozone and Weather in New York City", outer = TRUE) ##add more space for margin and add a title to cover all plots
 })
-
+# mar = c(bottom, left, top, right)
 
 ```
 
