@@ -1,0 +1,58 @@
+---
+title: "Graphics Devices in R"
+output: html_document
+date: '2022-04-15'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Graphics device
+* screen (defaut is different for Mac, windows and Linux)
+* file device (different types, when you want to keep and send the plots) 
+
+# Create a plot for file devices
+```{r}
+pdf(file = "myplot.pdf") ##Open PDF device, create "myplot.pdf" in my working directory
+## Create a plot and send it to a file (no plot appears on screen)
+with(faithful, plot(eruptions, waiting))
+title(main = "Old Faithful Geyser data") ##Annotate plot; still nothing on screen
+dev.off() ##Close the PDF file device
+## Now you can view the file "myplot.pdf" on your screen
+```
+
+# Basic types of file devices: vector and bitmap devices
+## Vector formats:
+* pdf: useful for line-type graphics, resizes well, usually portable, not efficient if a plot has many objects/points
+* svg: XML-based scalable vector graphics; supports animation and interactivity, potentially useful for web-based plots
+* win.metafile: Windows metafile format (only on Windows)
+* postscript: older format, also resizes well, usually portable, can be used to create encapsulated postscripts; Windows systems often don't have a postscript viewer
+
+## Bitmap formats
+* png: bitmapped format, good for line drawing or images with solid colors, uses lossless compression (like the old GIF format), most web browsers can read this format natively, good for plotting many many points, does not resize well;
+* jpep: good for photographs or natural scenes, uses lossy compression, good for plotting many many many points, does not resize well, can be read by almost any computer and any web browser, not great for line drawing
+* tiff: creates bitmap files in the TIFF format; supports lossless compression
+* bmp: a nativeWindows bitmapped format
+
+# Multiple open graphics devices
+* It's possible to open multiple graphics devices (screen and file), for example when viewing multiple plots at once
+* However, plotting can only occur on one graphics device at once
+* The currently active graphics device can be found by calling dev.cur()
+* Every open graphics device is assigned an integer >= 2
+* You can change the active graphics device with dev.set(<integer>) where <integer> is the number associated with the graphics device you want to switch to
+
+# Copying plots
+Copying a plot to another device can be useful because some plots require a lot of code and it can be a pain to type all that in again for a different device
+* dev.copy: copy a plot from one device to another
+* dev.copy2pdf: specifically copy a plot to a PDF file
+NOTE: Copying a plot is not an exact operation, so the results may not be identical to the original
+
+```{r}
+library(datasets)
+with(faithful, plot(eruptions, waiting)) ##Create plot on screen device
+title(main = "Old Faithful Geyser data") ##Add a main title
+dev.copy(png, file = "geyserplot.png") ##copy my plot to a PNG file
+dev.off() ##Don't forget to close the PNG device
+```
+
