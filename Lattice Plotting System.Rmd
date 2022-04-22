@@ -54,3 +54,5 @@ p <- xyplot(Ozone ~ Wind, data = airquality)
 print(p)
 ```
 
+# Lattice Panel Functions
+* Lattice 
