@@ -1,0 +1,56 @@
+---
+title: "Lattice Plotting System"
+author: "Yuling"
+date: "4/22/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# The Lattice Plotting System
+## Two packages:
+* Lattice: contains code for producing Trellis graphics, which are independent of the "base" graphics system; includes functionss like xyplot, bwplot, levelplot;
+* grid: implements a different graphing system independent of the "base" system; the lattice package builds on top of grid;
+
+-- We seldom call functions from the grid package directly;
+
+* The lattice plotting system does not have a "two-phase" aspect with separate plotting and annotation like in base plotting;
+* All plotting/annotation is done at once with a single function call
+
+# Lattice Functions
+* xyplot: create scatterplots
+```{r } 
+# xyplot(y ~ x | f * g, data)
+# # f and g are conditioning variables - they are optional
+# -- the * indicates an interaction between two variables
+
+library(lattice)
+library(datasets)
+xyplot(Ozone ~ Wind, data = airquality)
+
+# Convert "Month" to a factor variable
+airquality <- transform(airquality, Month = factor(Month))
+xyplot(Ozone ~ Wind | Month, data = airquality, layout = c(5,1))
+```
+
+* bwplot: box-and-whiskers plots ("boxplots")
+* histogram: histograms
+* stripplot: like a boxplot but with actual points
+* splom: scatter matrix; like pairs in base plotting system
+* levelplot, contourplot: for plotting "image" data
+
+# Lattice Behaviour
+* Base graphics functions plot data directly to the graphic device (screen, PDF file, etc);
+* Lattice graphics functions return an object of class trellis
+* The print methods for lattice functions actually do the work of plotting the data on the graphics device
+* Lattice functions return "plot objects" that can, in principle, be stored (but it's usually better to just save the code + data).
+* On the command line, trellis objects are auto-printed so that it appeats the function is plotting the data
+
+```{r}
+# compared with auto-printing
+p <- xyplot(Ozone ~ Wind, data = airquality)
+print(p)
+```
+
