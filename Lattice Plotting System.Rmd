@@ -55,4 +55,33 @@ print(p)
 ```
 
 # Lattice Panel Functions
-* Lattice 
+* Lattice functions have a __panel function__ which controls what happens inside each panel of the plot
+* Panel function receive the x/y coordinates of the data points in their panel (along with any optional arguments)
+
+```{r}
+set.seed(10)
+x <- rnorm(100)
+f <- rep(0:1, each = 50)
+y <- x + f - f * x + rnorm(100, sd = 0.5)
+f <- factor(f, labels = c("Group 1", "Group 2"))
+xyplot(y ~ x | f, layout = c(2,1))
+
+# Custom panel function
+xyplot(y ~ x | f, panel = function(x, y, ...) {
+  panel.xyplot(x, y, ...) # first call the default panel function for "xyplot"
+  panel.abline(h = median(y), lty = 2) ## add a horizontal line at the median
+})
+
+# add a simple linear regression line
+xyplot(y ~ x | f, panel = function(x, y, ...) {
+  panel.xyplot(x, y, ...) # first call the default panel function for "xyplot"
+  panel.lmline(x, y, col = 2) ## add a horizontal line at the median
+})
+```
+
+# Summay
+* Lattice plots are constructed with a single function call to a core lattice function (e.g. xyplot)
+* Aspects like margins and spacing are automatically handled and defaults are usually sufficient
+* The lattice system is ideal for creating conditioning plots where you examine the same kind of plot under many different conditions
+* Panel functions can be specific/ customized to modify what is plotted in each of the plot panels
+
